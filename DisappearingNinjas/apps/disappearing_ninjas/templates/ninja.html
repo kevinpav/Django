@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" media="screen" title="no title"  charset="utf-8">
+  </head>
+  <body>
+    <h1>Disappearing Ninja</h1>
+    {% for ninja in request.session.colors %}
+      {% if ninja == 'blue' %}
+        <img src="{% static 'ninjas/leonardo.jpg' %}">
+      {% endif %}
+      {% if ninja == 'orange' %}
+        <img src="{% static 'ninjas/michelangelo.jpg' %}">
+      {% endif %}
+      {% if ninja == 'red' %}
+        <img src="{% static 'ninjas/raphael.jpg' %}">
+      {% endif %}
+      {% if ninja == 'purple' %}
+        <img src="{% static 'ninjas/donatello.jpg' %}">
+      {% endif %}
+      {% if ninja == 'other' %}
+        <img src="{% static 'ninjas/notapril.jpg' %}">
+      {% endif %}
+    {% endfor %}
+  </body>
+</html>
