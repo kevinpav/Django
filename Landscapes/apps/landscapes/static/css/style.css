@@ -1,0 +1,12 @@
+h1{
+    text-align: center;
+}
+img{
+    height: 300px;
+}
+.items{
+    /* border: solid black 2px; */
+    margin-left: 30%;
+    /* padding: 15px; */
+    width: 50%;
+}
