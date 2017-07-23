@@ -1,0 +1,19 @@
+# Once all the previous steps are complete, test your code by adding 3 new products.
+# Retrieve all rows from your table and print each to the console.
+
+>>> product1 = Product.objects.create(name="Product 1",description="First product added to the DB",weight=1, price=2.1, cost=1, category="New Product")
+>>> product1 = Product.objects.create(name="Product 2",description="Second product added to the DB",weight=21, price=5, cost=2, category="New Product")
+>>> product1 = Product.objects.create(name="Product 3",description="Third product added to the DB",weight=33, price=11, cost=3, category="New Product")
+>>> product1
+<Product: Product object>
+>>> products = Product.objects.all()
+>>> products
+<QuerySet [<Product: Product object>, <Product: Product object>, <Product: Product object>]>
+
+>>> for product in products:
+...     print product.name, product.description
+...
+Product 1 First product added to the DB
+Product 2 Second product added to the DB
+Product 3 Third product added to the DB
+>>>
