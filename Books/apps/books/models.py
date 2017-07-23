@@ -6,13 +6,14 @@ from django.db import models
 class Authors(models.Model):
     name = models.CharField(max_length=65)
     description = models.CharField(max_length=100)
+    book_id = models.ManyToManyField("Books")
     created_at = models.DateTimeField(auto_now_add = True)
     updated_at = models.DateTimeField(auto_now = True)
 
 class Books(models.Model):
     title = models.CharField(max_length=65)
     #author = models.CharField(max_length=65) # Normalized to Authors table
-    author_id = models.ForeignKey(Authors)
+    author_id = models.ManyToManyField("Authors") # Changed to ManyToMany for Anthologies assignment
     published_date = models.DateTimeField()
     category = models.CharField(max_length=16)
     in_print = models.BooleanField(default=True)    # Set default=True so it wouldn't be Null

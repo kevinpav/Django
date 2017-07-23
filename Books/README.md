@@ -33,3 +33,20 @@ To Do:
 6. Assign author #1 to the first 2 books.
 
 7. Assign author #4 to the rest of the books.
+
+==
+Optional Assignment: Anthologies
+Modify your Books and Authors assignment to follow these guidelines.
+
+An anthology is a collection of poetry or short stories, often by different authors. That means that some of these collections may have more than one author.
+
+To Do:
+1. change your Book's and Author's table relationships to many-to-many
+
+2. in shell create 3 new books and 3 new authors.
+
+3. now create a connection between an existing book and an existing author
+
+4. connect another author to the same book
+
+5. now use the authors attribute in your books model to retrieve all the authors of that book
