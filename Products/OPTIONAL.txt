@@ -1,0 +1,9 @@
+s1 = Store.objects.create(name="Store 1", description="First Store")
+>>> s1.save()
+>>> p1 = Product.objects.get(id=1)
+>>> s1.product_id.add(p1)
+
+print s1.product_id.all()
+<QuerySet [<Product: Product object>]>
+>>> print s1.product_id.all()[0].name
+Product 1
