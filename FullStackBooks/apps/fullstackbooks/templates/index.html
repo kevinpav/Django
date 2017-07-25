@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>FullStackBooks - index.html</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" media="screen" title="no title"  charset="utf-8">
+</head>
+<body>
+    <h1>FullStackBooks - index.html</h1>
+    <div class="books_display">
+        <table>
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Category</th>
+                </tr>
+            </thead>
+            <!-- <tfoot>
+                <tr>
+                    <td></td>
+                </tr>
+            </tfoot> -->
+            <tbody>
+                {% for book in books %}
+                    <tr>
+                        <td>{{book.id}}</td>
+                        <td>{{book.title}}</td>
+                        <td>{{book.author}}</td>
+                        <td>{{book.category}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <h2>Add a Book</h2>
+    <div class="book_form">
+        <form action="/addbook" method="post">
+            {% csrf_token %}
+            Title
+            <input type="text" name="title" size="65">
+            Author
+            <input type="text" name="author" size="30">
+            Category
+            <input type="text" name="category" size="16">
+            <input type="submit" value="Enter Book">
+        </form>
+    </div>
+</body>
+</html>
