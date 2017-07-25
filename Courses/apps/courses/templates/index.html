@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Course - index.html</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" media="screen" title="no title"  charset="utf-8">
+</head>
+<body>
+    <h1>Add a new course</h1>
+
+    <div class="course_form">
+        <form action="/addcourse" method="post">
+            {% csrf_token %}
+            <p>
+                <label for="name">Name:</label>
+                <input type="text" name="name" size="60">
+            </p>
+            <p>
+                <label for="description">Description:</label>
+                <textarea name="description" rows="4" cols="60"></textarea>
+            </p>
+            <p>
+                <input type="submit" value="Enter Course">
+            </p>
+        </form>
+    </div>
+
+    <div class="courses_display">
+        <table>
+            <thead>
+                <tr>
+                    <th>Course Name</th>
+                    <th>Description</th>
+                    <th>Date Added</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <!-- <tfoot>
+                <tr>
+                    <td></td>
+                </tr>
+            </tfoot> -->
+            <tbody>
+                {% for course in courses %}
+                    <tr>
+                        <td>{{course.name}}</td>
+                        <td>{{course.description}}</td>
+                        <td>{{course.created_at}}</td>
+                        <td><a href="/courses/destroy/{{course.id}}">remove</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

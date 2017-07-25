@@ -1,0 +1,35 @@
+h1, h2{
+     text-align: center; 
+}
+img{
+    height: 300px;
+}
+table{
+    border: solid 1px black;
+    margin: 5% 10%;
+    table-layout: fixed;
+    /* width: 80%; */
+}
+thead{
+    background-color: gray;
+}
+tr:nth-child(odd) {
+    background-color: lightgray;
+}
+td{
+    border-left: solid 1px black;
+    border-right: solid 1px black;
+    /* white-space: nowrap; */
+}
+p{
+    text-align: right;
+    width: 90%;
+}
+.courses_display, .course_form{
+    margin: 20px;
+    width: 70%; 
+}
+.confirm_btns{
+    text-align: right;
+    width: 70%; 
+}
