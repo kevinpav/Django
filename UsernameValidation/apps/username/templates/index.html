@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Username - index.html</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" media="screen" title="no title"  charset="utf-8">
+</head>
+<body>
+    <h1>Add a new course</h1>
+
+    <div class="username_form">
+        <form action="/addusername" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Enter Username">
+        </form>
+    </div>
+
+    <div class="username_display">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Date Created</th>
+                    <th>Date Added</th>
+                </tr>
+            </thead>
+            <!-- <tfoot>
+                <tr>
+                    <td></td>
+                </tr>
+            </tfoot> -->
+            <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{user.id}}</td>
+                        <td>{{user.username}}</td>
+                        <td>{{user.created_at}}</td>
+                        <td>{{user.updated_at}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
