@@ -26,6 +26,7 @@ def login(req):
 
     context = {
         "form": result,
+        "loginform": LoginForm(),
         "users": User.objects.all()
     }
     return render(req, 'index.html', context)
@@ -38,6 +39,7 @@ def register(req):
         if not result.is_valid():
             context = {
                 "form": result,
+                "loginform": LoginForm(),
                 "users": User.objects.all()
             }
             # print result.errors
@@ -47,9 +49,9 @@ def register(req):
             req.session['uid'] = uid
             print uid
             context = {
-                "user": User.objects.get(id=uid)
+                "user": User.objects.get(id=int(uid))
             }
-            return render(req, 'success.html', user)
+            return render(req, 'success.html', context)
 
     return redirect('/')
 
