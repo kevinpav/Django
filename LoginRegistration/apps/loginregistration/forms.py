@@ -2,7 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from .models import User
 
-class UsernameForm(forms.ModelForm):
+class RegisterForm(forms.ModelForm):
     first_name = forms.CharField(min_length=2)
     last_name = forms.CharField(min_length=2)
     email = forms.CharField(min_length=8, max_length=25)
@@ -23,7 +23,6 @@ class UsernameForm(forms.ModelForm):
         if cleaned['password'] != cleaned['confirm_password']:
             raise forms.ValidationError({"password":"Passwords do not match"})
 
-
     class Meta:
         model = User
         fields = ['first_name','last_name','email','password','confirm_password']
@@ -37,13 +36,15 @@ class LoginForm(forms.ModelForm):
         cleaned = self.cleaned_data
         # Check for user
         result = User.objects.filter(email=cleaned['email'])
-        print result
-        if len(result) != 1:
+        # print("**Found {} results".format(result.count()))
+        if len(result) < 1:
             raise forms.ValidationError({"email":"User not found."})
+        elif len(result) > 1:
+            raise forms.ValidationError({"email":"Multiple Users found. Oh noes."})
         else:
             # Validate Passwd
-            if cleaned['password'] != result[0]['password']:
-                raise forms.ValidationError({"password":"Passwords do not match"})
+            if cleaned['password'] != result[0].password:
+                raise forms.ValidationError({"password":"Password entered doesn't match what I have."})
 
     class Meta:
         model = User

@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.shortcuts import render, redirect, HttpResponse
-from .forms import UsernameForm, LoginForm
+from .forms import RegisterForm, LoginForm
 # from .models import Book, Author, Category
 from .models import User
 
 # Create your views here.
 def index(req):
     context = {
-        "form": UsernameForm(),
+        "form": RegisterForm(),
         "loginform": LoginForm(),
         "users": User.objects.all()
     }
@@ -16,11 +16,13 @@ def index(req):
     return render(req, 'index.html', context)
 
 def login(req):
+    # print("req: {}".format(req))
     if req.method == "POST":
-        result = UsernameForm(req.POST)
+        result = LoginForm(req.POST)
+        print("login.result: {}".format(result))
         if result.is_valid():
             context = {
-                "user": User.objects.get(email=req.POST['email'])
+                "user": User.objects.get(email=req.POST['email'].lower())
             }
             return render(req, 'success.html', context)
 
@@ -34,9 +36,21 @@ def login(req):
 def register(req):
     # Course.objects.create(name=req.POST['name'],description=req.POST['description'])
     if req.method == "POST":
-        result = UsernameForm(req.POST)
+        result = RegisterForm(req.POST)
 
-        if not result.is_valid():
+        if result.is_valid():
+            # This broke the form. TODO: figure out a way to lower() the email
+            # result['email'] = req.POST['email'].lower()
+            newuser = result.save()
+            # print("newuser= {}".format(newuser))
+            uid = int(newuser.id)
+            req.session['uid'] = uid
+            # print("uid= {}".format(uid))
+            context = {
+                "user": User.objects.get(id=uid)
+            }
+            return render(req, 'success.html', context)
+        else:
             context = {
                 "form": result,
                 "loginform": LoginForm(),
@@ -44,14 +58,6 @@ def register(req):
             }
             # print result.errors
             return render(req, 'index.html', context)
-        else:
-            uid = result.save()
-            req.session['uid'] = uid
-            print uid
-            context = {
-                "user": User.objects.get(id=int(uid))
-            }
-            return render(req, 'success.html', context)
 
     return redirect('/')
 
