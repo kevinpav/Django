@@ -2,10 +2,13 @@
 from __future__ import unicode_literals
 from django.core.exceptions import ValidationError
 from django.db import models
+import re
 
 MINLENGTH = 2
 MAXLENGTH = 25
 MINPASS = 9
+# Create the regex we will use to validate email
+EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9\.\+_-]+@[a-zA-Z0-9\.]')
 
 def validateLength(arg):
     if len(arg) < MINLENGTH:
@@ -24,8 +27,10 @@ def validatePasswd(arg):
         )
 
 def validateEmail(arg):
-    pass
-
+    if not EMAIL_REGEX.match(arg):
+        raise ValidationError(
+            "Email format is invalid"
+        )
 
 # Create your models here.
 class User(models.Model):
@@ -35,7 +40,7 @@ class User(models.Model):
             validators=[validateLength])
     email = models.CharField(max_length=25)
     password = models.CharField(max_length=25,
-            validators=[validatePasswd])
+            validators=[validatePasswd, validateEmail])
     created_at = models.DateTimeField(auto_now_add = True)
     updated_at = models.DateTimeField(auto_now = True)
     # objects = UserManager()
